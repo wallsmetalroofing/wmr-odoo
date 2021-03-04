@@ -7,6 +7,6 @@ from odoo import api, fields, models
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
-    panel_count = fields.Float()
-    length_ft = fields.Float(string="Length (ft)")
-    length_in = fields.Float(string="Length (in)")
+    panel_count = fields.Integer()
+    length_ft = fields.Integer(string="Length (ft)")
+    length_in = fields.Integer(string="Length (in)")
