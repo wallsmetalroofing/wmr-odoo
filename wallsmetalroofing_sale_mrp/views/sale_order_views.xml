@@ -7,14 +7,16 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='order_line']/form//label[@for='product_uom_qty']" position="before">
-                <field name="panel_count"/>
-                <field name="length_ft"/>
-                <field name="length_in"/>
+                <field name="categ_name"/>
+                <field name="panel_count" attrs="{'readonly': [('categ_name','=','Metal Panels')]}"/>
+                <field name="length_ft" attrs="{'readonly': [('categ_name','=','Metal Panels')]}"/>
+                <field name="length_in" attrs="{'readonly': [('categ_name','=','Metal Panels')]}"/>
             </xpath>
             <xpath expr="//field[@name='order_line']//tree//field[@name='product_uom_qty']" position="before">
-                <field name="panel_count"/>
-                <field name="length_ft"/>
-                <field name="length_in"/>
+                <field name="categ_name"/>
+                <field name="panel_count" attrs="{'readonly': [('categ_name','=','Metal Panels')]}"/>
+                <field name="length_ft" attrs="{'readonly': [('categ_name','=','Metal Panels')]}"/>
+                <field name="length_in" attrs="{'readonly': [('categ_name','=','Metal Panels')]}"/>
             </xpath>
         </field>
     </record>
