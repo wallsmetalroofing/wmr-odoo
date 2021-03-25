@@ -9,7 +9,6 @@ class SaleOrderLine(models.Model):
     panel_count = fields.Integer()
     length_ft = fields.Integer(string="Length (ft)")
     length_in = fields.Integer(string="Length (in)")
-    categ_name = fields.Char(string="Category", related='product_id.categ_id.name')
 
     @api.onchange('panel_count', 'length_ft', 'length_in')
     def _onchange_panel_count(self):
