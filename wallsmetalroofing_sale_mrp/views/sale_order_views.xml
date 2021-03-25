@@ -8,15 +8,15 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='order_line']/form//label[@for='product_uom_qty']" position="before">
                 <field name="categ_name" invisible="1"/>
-                <field name="panel_count" attrs="{'readonly': [('categ_name','=','Metal Panels')]}"/>
-                <field name="length_ft" attrs="{'readonly': [('categ_name','=','Metal Panels')]}"/>
-                <field name="length_in" attrs="{'readonly': [('categ_name','=','Metal Panels')]}"/>
+                <field name="panel_count"/>
+                <field name="length_ft"/>
+                <field name="length_in"/>
             </xpath>
             <xpath expr="//field[@name='order_line']//tree//field[@name='product_uom_qty']" position="before">
                 <field name="categ_name" invisible="1"/>
-                <field name="panel_count" attrs="{'readonly': [('categ_name','=','Metal Panels')]}"/>
-                <field name="length_ft" attrs="{'readonly': [('categ_name','=','Metal Panels')]}"/>
-                <field name="length_in" attrs="{'readonly': [('categ_name','=','Metal Panels')]}"/>
+                <field name="panel_count"/>
+                <field name="length_ft"/>
+                <field name="length_in"/>
             </xpath>
         </field>
     </record>
