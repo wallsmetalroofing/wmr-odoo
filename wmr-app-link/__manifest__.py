@@ -4,5 +4,6 @@
     'summary': 'Walls Metal Roofing App Link',
     'application': False,
     'installable': True,
+    'depends': ["sale_mrp", "stock"],
     'data': []
 }

@@ -75,3 +75,46 @@ class ApiController(http.Controller):
                 'id': product_id
             }
         }
+
+    # Listen for product create requests
+    @http.route("/wmr/product/template/create", auth="wmr_api_key", type="json")
+    def product_template_create(self, request):
+        print("Create Product")
+
+        user = request.params['user']
+        product = request.params['product']
+
+        res = request.env['product.template'].with_user(
+            user['id']
+        ).create([product])
+        print(res)
+
+        return {
+            'success': True,
+            'product': {
+                'id': res.id
+            }
+        }
+
+    # Listen for product create requests
+    @http.route("/wmr/product/template/update", auth="wmr_api_key", type="json")
+    def product_template_update(self, request):
+        print("Update Product")
+
+        user = request.params['user']
+        product = request.params['product']
+        product_id = product['id']
+        del product['id']
+
+        # Get and update the record details
+        record = request.env['product.template'].browse([product_id])
+        record.with_user(
+            user['id']
+        ).update(product)
+
+        return {
+            'success': True,
+            'product': {
+                'id': product_id
+            }
+        }
