@@ -118,3 +118,45 @@ class ApiController(http.Controller):
                 'id': product_id
             }
         }
+
+    # Listen for Sales create requests
+    @http.route("/wmr/sales/order/create", auth="wmr_api_key", type="json")
+    def sale_order_create(self, request):
+        print("Create Sales")
+
+        user = request.params['user']
+        sale = request.params['sale']
+
+        res = request.env['sale.order'].with_user(
+            user['id']
+        ).create([sale])
+        print(res)
+
+        return {
+            'success': True,
+            'sale': {
+                'id': res.id
+            }
+        }
+        
+    # Listen for Sales update requests
+    @http.route("/wmr/sales/order/update", auth="wmr_api_key", type="json")
+    def sale_order_create(self, request):
+        print("Create Sales")
+
+        user = request.params['user']
+        sale = request.params['sale']
+
+        res = request.env['sale.order'].with_user(
+            user['id']
+        ).create([sale])
+        print(res)
+
+        return {
+            'success': True,
+            'sale': {
+                'id': res.id
+            }
+        }
+
+
