@@ -34,12 +34,12 @@ class IrHttp(models.AbstractModel):
 class Wmrapi(http.Controller):
 
     # API to Create a sales record
-    @http.route('/wmr-api/wmr-api/sales/create', auth='wmr_api_key', type='json')
+    @http.route('/wmr-api/sales/create', auth='wmr_api_key', type='json')
     def _create_sales(self, **kw):
         return self.create_sales_record( kw)
 
     # API to Add Quotes to an existing sales record
-    @http.route('/wmr-api/wmr-api/sales/update', auth='wmr_api_key', type='json')
+    @http.route('/wmr-api/sales/update', auth='wmr_api_key', type='json')
     def _add_order_lines(self, **kw):
         return self.add_order_lines(kw)
     
@@ -83,7 +83,6 @@ class Wmrapi(http.Controller):
         res = request.env['sale.order'].with_user(
             user['id']
         ).create([sale_data])
-        print(res)
 
         # Response
         return {
@@ -94,7 +93,6 @@ class Wmrapi(http.Controller):
         }
     
     def add_order_lines(self, kw):
-        print("Entered in Updating Sales")
         user = kw.get('user')
         sale = kw.get('sale')
         order_lines = sale["order_line"]
@@ -125,7 +123,6 @@ class Wmrapi(http.Controller):
             new_order_line = request.env['sale.order.line'].with_user(user['id']).create(lines)
             sale_data.write({})
             order_line.append(new_order_line.id)
-            # print(new_order_line+" added")
 
         x_studio_quote_id = sale_data.x_studio_quote_id
         x_studio_quote_id = x_studio_quote_id + ", " + sale['x_studio_quote_id']
