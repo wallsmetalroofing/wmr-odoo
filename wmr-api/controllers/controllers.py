@@ -42,6 +42,12 @@ class Wmrapi(http.Controller):
     @http.route('/wmr-api/sales/update', auth='wmr_api_key', type='json')
     def _add_order_lines(self, **kw):
         return self.add_order_lines(kw)
+
+    # API to Add Quotes to an existing sales record
+    @http.route('/wmr-api/contacts/create', auth='wmr_api_key', type='json')
+    def _add_order_lines(self, **kw):
+        return self.create_contact(kw)
+
     
 
     def create_sales_record(self, kw):
@@ -142,5 +148,43 @@ class Wmrapi(http.Controller):
             'sale': {
                 'sales_id': sale_data.id,
                 'order_lines_id': order_line,
+            }
+        }
+
+    def create_contact(self, kw):
+        user =  kw.get('user')
+        contact = kw.get('data')
+
+        # Create the parent contact record
+        parent_contact = request.env['res.partner'].create({
+            'name': contact['name'],
+            'is_company': contact['is_company'] if contact['is_company'] else False,
+            "lang": "en_CA",
+            'street': contact['street'],
+            'street2': contact['street2'],
+            'city': contact['city'],
+            'state_id': request.env['res.country.state'].search([('name', '=', contact['state'])]).id,
+            'zip': contact['zip'],
+            'country_id': request.env['res.country'].search([('name', '=', contact['country'])]).id,
+            'x_studio_vendor':contact['x_studio_vendor'] if contact['x_studio_vendor'] else False,
+            'x_studio_customer': contact['x_studio_customer'] if contact['x_studio_customer'] else False
+            
+        })
+
+        # Create the child contact records and link it to the parent contact
+        for child_contact in contact['child_contacts']:
+            child_contact = request.env['res.partner.contacts'].create({
+                'name': child_contact['name'],
+                'partner_id': parent_contact.id,
+                'telephone': child_contact['telephone'],
+                'email':  child_contact['email']
+            })
+        
+        # Response
+        return {
+            'success': True,
+            'sale': {
+                'contact': parent_contact.read(),
+                'child_contact': parent_contact.contact_ids.read()
             }
         }
