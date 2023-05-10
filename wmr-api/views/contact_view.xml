@@ -42,7 +42,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='internal_notes']" position="after">
                     <page name="contacts" string="Contacts">
-                        <field name="contact_ids" />
+                        <field name="contact_ids" mode="kanban"/>
                     </page>
                 </xpath>
             </field>
