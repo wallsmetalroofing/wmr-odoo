@@ -23,15 +23,15 @@
         </record>
 
 
-        <record id="view_res_partner_contacts_tree" model="ir.ui.view">
-            <field name="name">res.partner.contacts.tree</field>
+        <record id="view_res_partner_contacts_kanban" model="ir.ui.view">
+            <field name="name">res.partner.contacts.kanban</field>
             <field name="model">res.partner.contacts</field>
             <field name="arch" type="xml">
-                <tree>
+                <kanban>
                     <field name="name" />
                     <field name="email" />
                     <field name="telephone" />
-                </tree>
+                </kanban>
             </field>
         </record>
 
