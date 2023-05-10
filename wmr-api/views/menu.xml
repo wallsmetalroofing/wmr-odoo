@@ -1,0 +1,6 @@
+<odoo>
+    <menuitem id="contacts_menu_configuration"
+        name="Sub Contact"
+        sequence="0"
+        action="action_contacts_menu" />
+</odoo> 

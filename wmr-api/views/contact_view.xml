@@ -1,17 +1,51 @@
-from odoo import api, fields, models
+<odoo>
+    <data>
 
-class ResPartner(models.Model):
-    _inherit = 'res.partner'
 
-    contact_ids = fields.One2many('res.partner.contacts', 'partner_id', string='Contact Details', copy=False)
+        <record id="view_res_partner_contacts_form" model="ir.ui.view">
+            <field name="name">res.partner.contacts.form</field>
+            <field name="model">res.partner.contacts</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" />
+                                <field name="email" />
+                            </group>
+                            <group>
+                                <field name="telephone" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
-class ContactDetails(models.Model):
-    _name = "res.partner.contacts"
-    _description = "Contact Details"
 
-    name = fields.Char(string='Name')
-    email = fields.Char(string='Email')
-    telephone = fields.Char(string="Telephone")
-    primary = fields.Boolean(string="Primary Contact")
-    partner_id = fields.Many2one('res.partner',string='Parent Contact Id', index=True, copy=True,ondelete='set null', track_visibility='onchange', track_sequence=3, store=True)
-    
+        <record id="view_res_partner_contacts_tree" model="ir.ui.view">
+            <field name="name">res.partner.contacts.tree</field>
+            <field name="model">res.partner.contacts</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="email" />
+                    <field name="telephone" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_res_partner_form_contacts_inherit" model="ir.ui.view">
+            <field name="name">res.partner.contacts.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='internal_notes']" position="after">
+                    <page name="contacts" string="Contacts">
+                        <field name="contact_ids" />
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
