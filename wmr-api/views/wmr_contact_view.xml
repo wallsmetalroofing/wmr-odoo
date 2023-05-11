@@ -1,6 +1,7 @@
 <odoo>
     <data>
 
+        <!-- Creates the view for the form to add Sub Contacts -->
         <record id="view_res_partner_contacts_form" model="ir.ui.view">
             <field name="name">res.partner.contacts.form</field>
             <field name="model">res.partner.contacts</field>
@@ -21,6 +22,7 @@
             </field>
         </record>
 
+        <!-- Creates the view to display tree view of the WMR Contacts -->
         <record id="view_res_partner_contacts_tree" model="ir.ui.view">
             <field name="name">res.partner.contacts.tree</field>
             <field name="model">res.partner.contacts</field>
@@ -33,14 +35,34 @@
             </field>
         </record>
 
-        <record id="view_res_partner_form_contacts_inherit" model="ir.ui.view">
+        <!-- Modifies the Contact Form as our need -->
+        <record id="view_res_partner_contacts_form_inherit" model="ir.ui.view">
             <field name="name">res.partner.contacts.inherit</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='internal_notes']" position="after">
                     <page name="contacts" string="Contacts">
-                        <field name="contact_ids" mode="kanban"/>
+                        <field name="contact_ids" mode="kanban">
+                            <kanban>
+                                <field name="name" />
+                                <field name="email" />
+                                <field name="telephone" />
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div>
+                                            <b>
+                                                <field name="name" />
+                                            </b>
+                                            <br />
+                                            <field name="email" />
+                                            <br />
+                                            <field name="telephone" />
+                                        </div>
+                                    </t>
+                                </templates>
+                            </kanban>
+                        </field>
                     </page>
                 </xpath>
             </field>

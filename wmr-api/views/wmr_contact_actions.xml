@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 <odoo>
-    <record id="action_contacts_menu" model="ir.actions.act_window">
-        <field name="name">Sub Contacts</field>
+    <!-- Creates the actions for the menu -->
+    <record id="wmr_action_contacts_menu" model="ir.actions.act_window">
+        <field name="name">WMR Contacts</field>
         <field name="res_model">res.partner.contacts</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Create a Sub Contact
+                Create a WMR Contact
             </p>
         </field>
     </record>

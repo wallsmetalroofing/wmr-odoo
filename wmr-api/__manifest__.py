@@ -86,9 +86,8 @@
     "depends": ["base"],
     "data": [
         "security/ir.model.access.csv",
-        "views/contact_view.xml",
-        "views/contact_form.xml",
-        "views/menu.xml",
+        "views/wmr_contact_view.xml",
+        "views/wmr_contact_actions.xml",
     ],
     "installable": True,
     "auto_install": False,
