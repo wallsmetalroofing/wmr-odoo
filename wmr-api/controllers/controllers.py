@@ -156,7 +156,7 @@ class Wmrapi(http.Controller):
         contact = kw.get('data')
 
         # Create the parent contact record
-        parent_contact = request.env['res.partner'].create({
+        parent_contact = request.env['res.partner'].with_user(user['id']).create({
             'name': contact['name'],
             'is_company': contact['is_company'] if contact['is_company'] else False,
             "lang": "en_CA",
@@ -166,14 +166,12 @@ class Wmrapi(http.Controller):
             'state_id': request.env['res.country.state'].search([('name', '=', contact['state'])]).id,
             'zip': contact['zip'],
             'country_id': request.env['res.country'].search([('name', '=', contact['country'])]).id,
-            'x_studio_vendor':contact['x_studio_vendor'] if contact['x_studio_vendor'] else False,
-            'x_studio_customer': contact['x_studio_customer'] if contact['x_studio_customer'] else False
             
         })
 
         # Create the child contact records and link it to the parent contact
         for child_contact in contact['child_contacts']:
-            child_contact = request.env['res.partner.contacts'].create({
+            child_contact = request.env['res.partner.contacts'].with_user(user['id']).create({
                 'name': child_contact['name'],
                 'partner_id': parent_contact.id,
                 'telephone': child_contact['telephone'],

@@ -1,7 +1,6 @@
 <odoo>
     <data>
 
-
         <record id="view_res_partner_contacts_form" model="ir.ui.view">
             <field name="name">res.partner.contacts.form</field>
             <field name="model">res.partner.contacts</field>
@@ -21,7 +20,6 @@
                 </form>
             </field>
         </record>
-
 
         <record id="view_res_partner_contacts_tree" model="ir.ui.view">
             <field name="name">res.partner.contacts.tree</field>
