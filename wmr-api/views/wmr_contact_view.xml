@@ -41,12 +41,9 @@
             <field name="model">res.partner.contacts</field>
             <field name="arch" type="xml">
                 <kanban>
-                    <field name="id" />
                     <field name="name" />
                     <field name="email" />
                     <field name="telephone" />
-                    <field name="primary" />
-                    <field name="partner_id" />
                     <templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_details">
