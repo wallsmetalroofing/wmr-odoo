@@ -46,14 +46,17 @@
                     <field name="telephone" />
                     <templates>
                         <t t-name="kanban-box">
-                            <div class="oe_kanban_details">
-                                <b>
-                                    <field name="name" />
-                                </b>
-                                <br />
-                                <field name="email" />
-                                <br />
-                                <field name="telephone" />
+                            <div class="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <strong class="oe_kanban_title">
+                                        <field name="name"/>
+                                    </strong>
+                                    <div class="oe_kanban_content">
+                                        <field name="email" />
+                                        <br/>
+                                        <field name="telephone"/>
+                                    </div>
+                                </div>
                             </div>
                         </t>
                     </templates>
@@ -69,46 +72,18 @@
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='internal_notes']" position="after">
                     <page name="contacts" string="Contacts">
-                        <field name="contact_ids" mode="kanban">
-                            <!-- <kanban>
-                                <field name="id" />
-                                <field name="name" />
-                                <field name="email" />
-                                <field name="telephone" />
-                                <field name="primary" />
-                                <field name="partner_id" />
-                                <templates>
-                                    <t t-name="kanban-box">
-                                        <div>
-                                            <b>
-                                                <field name="name" />
-                                            </b>
-                                            <br />
-                                            <field name="email" />
-                                            <br />
-                                            <field name="telephone" />
-                                        </div>
-                                    </t>
-                                </templates>
-                            </kanban>
-                            <form>
-                                <sheet>
-                                    <group>
-                                        <group>
-                                            <field name="name" />
-                                            <field name="email" />
-                                        </group>
-                                        <group>
-                                            <field name="telephone" />
-                                        </group>
-                                    </group>
-                                </sheet>
-                            </form> -->
-                        </field>
+                        <field name="contact_ids" mode="kanban" />
                     </page>
 
                 </xpath>
             </field>
         </record>
     </data>
+
+    <!-- Menu for the Sub Contacts on main screen of Odoo -->
+    <!-- <menuitem id="contacts_menu_configuration"
+        name="Sub Contact"
+        sequence="0"
+        action="wmr_action_contacts_menu" /> -->
+
 </odoo>
