@@ -28,6 +28,22 @@ class IrHttp(models.AbstractModel):
         if not user_id:
             raise BadRequest("API key invalid")
 
+        # Validate the ip address and only allow request coming through the provided ip address
+        ip_address = request.httprequest.environ.get('REMOTE_ADDR')
+        allowed_ip = request.env['ir.config_parameter'].sudo().get_param('allowed.ip.addresses')
+        access_granted =False
+
+        array = allowed_ip.split(",")
+        array = [item.strip() for item in array]
+
+        for item in array:
+            if item == ip_address:
+                access_granted = True
+                break
+
+        if not access_granted:
+            raise BadRequest("Cannot access the API through this device")
+
         request.uid = user_id
 
 
