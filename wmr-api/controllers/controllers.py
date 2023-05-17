@@ -187,7 +187,7 @@ class Wmrapi(http.Controller):
 
         # Create the child contact records and link it to the parent contact
         for child_contact in contact['child_contacts']:
-            child_contact = request.env['res.partner.contacts'].with_user(user['id']).create({
+            child_contact = request.env['res.partner.wmr_contacts'].with_user(user['id']).create({
                 'name': child_contact['name'],
                 'partner_id': parent_contact.id,
                 'telephone': child_contact['telephone'],

@@ -3,10 +3,10 @@ from odoo import api, fields, models
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    contact_ids = fields.One2many('res.partner.contacts', 'partner_id', string='Contact Details', copy=False)
+    contact_ids = fields.One2many('res.partner.wmr_contacts', 'partner_id', string='Contact Details', copy=False)
 
 class ContactDetails(models.Model):
-    _name = "res.partner.contacts"
+    _name = "res.partner.wmr_contacts"
     _description = "Contact Details"
 
     name = fields.Char(string='Name')

@@ -2,9 +2,9 @@
     <data>
 
         <!-- Creates the view for the form to add Sub Contacts -->
-        <record id="view_res_partner_contacts_form" model="ir.ui.view">
-            <field name="name">res.partner.contacts.form</field>
-            <field name="model">res.partner.contacts</field>
+        <record id="view_res_partner_wmr_contacts_form" model="ir.ui.view">
+            <field name="name">res.partner.wmr_contacts.form</field>
+            <field name="model">res.partner.wmr_contacts</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
@@ -23,9 +23,9 @@
         </record>
 
         <!-- Creates the view to display tree view of the WMR Contacts -->
-        <record id="view_res_partner_contacts_tree" model="ir.ui.view">
-            <field name="name">res.partner.contacts.tree</field>
-            <field name="model">res.partner.contacts</field>
+        <record id="view_res_partner_wmr_contacts_tree" model="ir.ui.view">
+            <field name="name">res.partner.wmr_contacts.tree</field>
+            <field name="model">res.partner.wmr_contacts</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="name" />
@@ -36,9 +36,9 @@
         </record>
 
         <!-- Creates the view to display kanban view of the WMR Contacts -->
-        <record id="view_res_partner_contacts_kanban" model="ir.ui.view">
-            <field name="name">res.partner.contacts.kanban</field>
-            <field name="model">res.partner.contacts</field>
+        <record id="view_res_partner_wmr_contacts_kanban" model="ir.ui.view">
+            <field name="name">res.partner.wmr_contacts.kanban</field>
+            <field name="model">res.partner.wmr_contacts</field>
             <field name="arch" type="xml">
                 <kanban>
                     <field name="name" />
@@ -65,8 +65,8 @@
         </record>
 
         <!-- Modifies the Contact Form as our need -->
-        <record id="view_res_partner_contacts_form_inherit" model="ir.ui.view">
-            <field name="name">res.partner.contacts.inherit</field>
+        <record id="view_res_partner_wmr_contacts_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.wmr_contacts.inherit</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
