@@ -30,7 +30,7 @@ class IrHttp(models.AbstractModel):
 
         # Validate the ip address and only allow request coming through the provided ip address
         ip_address = request.httprequest.environ.get('REMOTE_ADDR')
-        allowed_ip = request.env['ir.config_parameter'].sudo().get_param('allowed.ip.addresses')
+        allowed_ip = request.env['ir.config_parameter'].sudo().get_param('wmr_allowed.ip.addresses')
         access_granted =False
 
         array = allowed_ip.split(",")
