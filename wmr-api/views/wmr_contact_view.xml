@@ -80,7 +80,7 @@
         </record>
     </data>
 
-    <!-- Menu for the Sub Contacts on main screen of Odoo -->
+    <!-- Hide for now... Menu for the Sub Contacts on main screen of Odoo -->
     <!-- <menuitem id="contacts_menu_configuration"
         name="Sub Contact"
         sequence="0"

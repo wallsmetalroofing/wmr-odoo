@@ -86,8 +86,8 @@
     "depends": ["base"],
     "data": [
         "security/ir.model.access.csv",
-        "views/wmr_contact_view.xml",
-        "views/wmr_contact_actions.xml",
+        # "views/wmr_contact_view.xml",         Disabled Sub Contacts for now
+        # "views/wmr_contact_actions.xml",      Disabled Sub Contacts for now
     ],
     "installable": True,
     "auto_install": False,
