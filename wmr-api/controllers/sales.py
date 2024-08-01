@@ -47,7 +47,7 @@ class IrHttp(models.AbstractModel):
         request.update_env(user_id)
 
 
-class Wmrapi(http.Controller):
+class WmrApiSales(http.Controller):
 
     # API to get a sales record
     @http.route('/wmr-api/sales', methods=['GET'], auth='wmr_api_key', type='json')
@@ -73,11 +73,6 @@ class Wmrapi(http.Controller):
     @http.route('/wmr-api/sales/confirm', methods=['PUT'], auth='wmr_api_key', type='json')
     def _confirm_sales_order(self, **kw):
         return self.confirm_sales_order(kw)
-
-    # API to Add Quotes to an existing sales record
-    @http.route('/wmr-api/contacts/create', auth='wmr_api_key', type='json')
-    def _add_order_lines(self, **kw):
-        return self.create_contact(kw)
     
         
     def get_sales(self, kw):
@@ -284,41 +279,5 @@ class Wmrapi(http.Controller):
             'sale': {
                 'sales_id': sale_data.id,
                 'order_lines_id': order_line,
-            }
-        }
-
-    def create_contact(self, kw):
-        user =  kw.get('user')
-        contact = kw.get('data')
-
-        # Create the parent contact record
-        parent_contact = request.env['res.partner'].with_user(user['id']).create({
-            'name': contact['name'],
-            'is_company': contact['is_company'] if contact['is_company'] else False,
-            "lang": "en_CA",
-            'street': contact['street'],
-            'street2': contact['street2'],
-            'city': contact['city'],
-            'state_id': request.env['res.country.state'].search([('name', '=', contact['state'])]).id,
-            'zip': contact['zip'],
-            'country_id': request.env['res.country'].search([('name', '=', contact['country'])]).id,
-            
-        })
-
-        # Create the child contact records and link it to the parent contact
-        for child_contact in contact['child_contacts']:
-            child_contact = request.env['res.partner.wmr_contacts'].with_user(user['id']).create({
-                'name': child_contact['name'],
-                'partner_id': parent_contact.id,
-                'telephone': child_contact['telephone'],
-                'email':  child_contact['email']
-            })
-        
-        # Response
-        return {
-            'success': True,
-            'sale': {
-                'contact': parent_contact.read(),
-                'child_contact': parent_contact.contact_ids.read()
             }
         }
