@@ -49,6 +49,11 @@ class IrHttp(models.AbstractModel):
 class Wmrapi(http.Controller):
 
     # API to Add Quotes to an existing sales record
+    @http.route('/wmr-api/contacts', methods=['GET'], auth='wmr_api_key', type='json')
+    def _get_contact(self, **kw):
+        return self.get_contact(kw)
+    
+    # API to Add Quotes to an existing sales record
     @http.route('/wmr-api/contacts', methods=['POST'], auth='wmr_api_key', type='json')
     def _create_contact(self, **kw):
         return self.create_contact(kw)
@@ -58,6 +63,19 @@ class Wmrapi(http.Controller):
     def _update_contact(self, **kw):
         return self.update_contact(kw)
 
+
+    def get_contact(self, kw):
+        user =  kw.get('user')
+        contact_id = kw.get('contact_id')
+
+        # Get the parent contact record
+        parent_contact = request.env['res.partner'].with_user(user['id']).search([('id', '=', contact_id)])
+
+        # Response
+        return {
+            'success': True,
+            'contact': parent_contact.read(),
+        }
 
     def create_contact(self, kw):
         user =  kw.get('user')

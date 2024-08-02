@@ -84,7 +84,7 @@ class WmrApiSales(http.Controller):
 
         return {
             'success': True,
-            'sale': sale_data.read(),
+            'sale': sale_data.read()[0],
             'order_line':sale_data[0]['order_line'].read()
         }
     
@@ -123,6 +123,8 @@ class WmrApiSales(http.Controller):
             "x_studio_quote_id": sale['x_studio_quote_id'],
             'note' : sale['note'],
             'payment_term_id': sale['payment_term_id'],
+            'type_name': 'Quotation',
+            'state': 'sale',                       
             'order_line' : order_line
         }
 
@@ -189,6 +191,8 @@ class WmrApiSales(http.Controller):
                 'display_type' : display_type,
                 'x_app_quote_id' : x_app_quote_id,
                 'x_app_group_id' : x_app_group_id,
+                'type_name': 'Quotation',
+                'state': 'sale',
                 'order_id':order_id
             }
 
