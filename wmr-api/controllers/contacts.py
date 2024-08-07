@@ -3,6 +3,7 @@
 from odoo import http
 from odoo.http import request
 
+
 class Wmrapi(http.Controller):
 
     # API to get list of contacts as per search criteria
