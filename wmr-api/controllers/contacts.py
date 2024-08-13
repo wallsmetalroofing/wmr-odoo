@@ -61,7 +61,7 @@ class Wmrapi(http.Controller):
         contact = kw.get('contact')
 
         # Create the parent contact record
-        parent_contact = request.env['res.partner'].with_user(user['id']).create({
+        new_contact = request.env['res.partner'].with_user(user['id']).create({
             'name': contact['name'],
             'email': contact['email'] if contact['email'] else False,
             'phone': contact['phone'] if contact['phone'] else False,
@@ -79,9 +79,8 @@ class Wmrapi(http.Controller):
         # Response
         return {
             'success': True,
-            'sale': {
-                'contact': parent_contact.read(),
-            }
+            'contact': new_contact.read(),
+            
         }
     
     def update_contact(self, kw):
@@ -89,25 +88,24 @@ class Wmrapi(http.Controller):
         contact = kw.get('contact')
 
         # Update the parent contact record
-        parent_contact = request.env['res.partner'].with_user(user['id']).search([('id', '=', contact['id'])])
-        parent_contact.write({
+        updated_contact = request.env['res.partner'].with_user(user['id']).search([('id', '=', contact['id'])])
+        updated_contact.write({
             'name': contact['name'],
-            'is_company': contact['is_company'] if contact['is_company'] else False,
+            'email': contact['email'] if contact['email'] else False,
+            'phone': contact['phone'] if contact['phone'] else False,
             "lang": "en_CA",
-            'street': contact['street'],
-            'street2': contact['street2'],
-            'city': contact['city'],
-            'state_id': request.env['res.country.state'].search([('name', '=', contact['state'])]).id,
-            'zip': contact['zip'],
-            'country_id': request.env['res.country'].search([('name', '=', contact['country'])]).id,
-            
+            # 'is_company': contact['is_company'] if contact['is_company'] else False,
+            # 'street': contact['street'] if contact['street'] else False,
+            # 'street2': contact['street2'] if contact['street2'] else False,
+            # 'city': contact['city'] if contact['city'] else False,
+            # 'state_id': request.env['res.country.state'].search([('name', '=', contact['state'])]).id if contact['state'] else False,
+            # 'zip': contact['zip'] if contact['zip'] else False,
+            # 'country_id': request.env['res.country'].search([('name', '=', contact['country'])]).id if contact['country'] else False,
         })
 
         
         # Response
         return {
             'success': True,
-            'sale': {
-                'contact': parent_contact.read(),
-            }
+            'contact': updated_contact.read(),
         }
