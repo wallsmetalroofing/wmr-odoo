@@ -39,10 +39,8 @@ class Wmrapi(http.Controller):
             domain = []        
 
         contacts = request.env['res.partner'].with_user(user['id']).search(domain,offset=offset, limit=limit)
-        return {
-            'success': True,
-            'contacts': [{'id': contact.id, 'name': contact.name, 'display_name': contact.display_name} for contact in contacts]
-        }
+        return [{'id': contact.id, 'name': contact.name, 'display_name': contact.display_name} for contact in contacts]
+        
 
 
     def get_contact(self, kw):
@@ -65,14 +63,16 @@ class Wmrapi(http.Controller):
         # Create the parent contact record
         parent_contact = request.env['res.partner'].with_user(user['id']).create({
             'name': contact['name'],
-            'is_company': contact['is_company'] if contact['is_company'] else False,
+            'email': contact['email'] if contact['email'] else False,
+            'phone': contact['phone'] if contact['phone'] else False,
             "lang": "en_CA",
-            'street': contact['street'],
-            'street2': contact['street2'],
-            'city': contact['city'],
-            'state_id': request.env['res.country.state'].search([('name', '=', contact['state'])]).id,
-            'zip': contact['zip'],
-            'country_id': request.env['res.country'].search([('name', '=', contact['country'])]).id,
+            # 'is_company': contact['is_company'] if contact['is_company'] else False,
+            # 'street': contact['street'] if contact['street'] else False,
+            # 'street2': contact['street2'] if contact['street2'] else False,
+            # 'city': contact['city'] if contact['city'] else False,
+            # 'state_id': request.env['res.country.state'].search([('name', '=', contact['state'])]).id if contact['state'] else False,
+            # 'zip': contact['zip'] if contact['zip'] else False,
+            # 'country_id': request.env['res.country'].search([('name', '=', contact['country'])]).id if contact['country'] else False,
         })
 
         
