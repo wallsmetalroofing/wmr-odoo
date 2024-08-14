@@ -79,7 +79,7 @@ class Wmrapi(http.Controller):
         # Response
         return {
             'success': True,
-            'contact': new_contact.read(),
+            'contact': new_contact.read()[0],
             
         }
     
@@ -107,5 +107,5 @@ class Wmrapi(http.Controller):
         # Response
         return {
             'success': True,
-            'contact': updated_contact.read(),
+            'contact': updated_contact.read()[0],
         }
