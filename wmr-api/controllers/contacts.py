@@ -27,10 +27,10 @@ class Wmrapi(http.Controller):
         return self.update_contact(kw)
     
     def get_contact_list(self, kw):
-        user = kw.get('user')
         offset = kw.get('offset') if kw.get('offset') else 0
         limit = kw.get('limit') if kw.get('limit') else 0
         search = kw.get('search') if kw.get('search') else False
+        properties = kw.get('properties') if kw.get('properties') else False
         
         
         if search:
@@ -38,23 +38,37 @@ class Wmrapi(http.Controller):
         else:
             domain = []        
 
-        contacts = request.env['res.partner'].with_user(user['id']).search(domain,offset=offset, limit=limit)
-        return [{'id': contact.id, 'name': contact.name, 'display_name': contact.display_name} for contact in contacts]
+        contacts = request.env['res.partner'].search(domain,offset=offset, limit=limit).read()
+
+        # Return only the requested properties if requested
+        if properties and len(properties) > 0:
+            contacts = [
+                {key: obj[key] for key in properties if key in obj}
+                for obj in contacts
+            ]
+
+        return contacts
         
 
-
     def get_contact(self, kw):
-        user =  kw.get('user')
-        contact_id = kw.get('contact_id')
+        contact_id = kw.get('contact_id') if kw.get('contact_id') else False
+        email = kw.get('email') if kw.get('email') else False
+        properties = kw.get('properties') if kw.get('properties') else False
+
+        if contact_id:
+            domain = [('id', '=', contact_id)]
+        elif email:
+            domain = [('email', '=', email)]
 
         # Get the parent contact record
-        parent_contact = request.env['res.partner'].with_user(user['id']).search([('id', '=', contact_id)])
+        contact = request.env['res.partner'].search(domain).read()[0]
+
+        # Return only the requested properties if requested
+        if properties and len(properties) > 0:
+            user = {key: user[key] for key in contact}
 
         # Response
-        return {
-            'success': True,
-            'contact': parent_contact.read(),
-        }
+        return contact
 
     def create_contact(self, kw):
         user =  kw.get('user')
