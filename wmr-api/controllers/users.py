@@ -52,37 +52,14 @@ class Wmrapi(http.Controller):
             domain = [('email', '=', email)]
 
         # Get the parent user record
-        user = request.env['res.users'].search(domain).read()[0]
+        user = request.env['res.users'].search(domain)
 
         # Return only the requested properties if requested
-        if properties and len(properties) > 0:
-            user = {key: user[key] for key in properties}
+        if len(user.read()) is 0 :
+            user = []
+        elif properties and len(properties) > 0:
+            user = user.read()[0]
+            user =[ {key: user[key] for key in properties}]
 
         # Response
         return user
-
-        user =  kw.get('user')
-        user = kw.get('user')
-
-        # Update the parent user record
-        updated_user = request.env['res.partner'].with_user(user['id']).search([('id', '=', user['id'])])
-        updated_user.write({
-            'name': user['name'],
-            'email': user['email'] if user['email'] else False,
-            'phone': user['phone'] if user['phone'] else False,
-            "lang": "en_CA",
-            # 'is_company': user['is_company'] if user['is_company'] else False,
-            # 'street': user['street'] if user['street'] else False,
-            # 'street2': user['street2'] if user['street2'] else False,
-            # 'city': user['city'] if user['city'] else False,
-            # 'state_id': request.env['res.country.state'].search([('name', '=', user['state'])]).id if user['state'] else False,
-            # 'zip': user['zip'] if user['zip'] else False,
-            # 'country_id': request.env['res.country'].search([('name', '=', user['country'])]).id if user['country'] else False,
-        })
-
-        
-        # Response
-        return {
-            'success': True,
-            'user': updated_user.read()[0],
-        }
