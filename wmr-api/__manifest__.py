@@ -7,7 +7,7 @@
         2.  Contacts""",
    "author": "Radhey",
     "sequence": -100,
-    "website": "http://www.wallsmetalroofng.com",
+    "website": "https://app.wallsmetalroofing.com",
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
@@ -18,6 +18,7 @@
     "data": [
         "security/ir.model.access.csv",
     ],
+    "images": [],
     "installable": True,
     "auto_install": False,
     "application": True,
