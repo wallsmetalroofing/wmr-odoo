@@ -18,7 +18,6 @@
     "data": [
         "security/ir.model.access.csv",
     ],
-    "images": [],
     "installable": True,
     "auto_install": False,
     "application": True,
